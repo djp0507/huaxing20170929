@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.hx.hn.android.ui.fenxiao.BindingCardActivity">
+
+    <include layout="@layout/app_common_header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:background="@color/nc_title_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:paddingStart="15dp"
+            android:textColor="@color/app_black"
+            android:textSize="18dp"
+            android:text="收款人姓名：" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp">
+
+            <EditText
+                android:id="@+id/edit_binding_name_card"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:visibility="gone"
+                android:textColorHint="@color/app_gray"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_binding_name_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="18dp"
+                android:visibility="gone"
+                android:text="小明" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View style="@style/NCLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/nc_title_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:textColor="@color/app_black"
+            android:textSize="18dp"
+
+            android:paddingStart="15dp"
+            android:text="收款人账号：" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:background="@null">
+
+            <EditText
+                android:id="@+id/edit_binding_number_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:textColorHint="@color/app_gray"
+                android:background="@null" />
+
+            <TextView
+                android:id="@+id/tv_binding_number_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_binding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_10"
+        android:visibility="gone"
+        android:paddingBottom="@dimen/dp_10"
+        android:background="@color/nc_title_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:textSize="18dp"
+            android:textColor="@color/app_black"
+            android:paddingStart="15dp"
+            android:text="收款人姓名：" />
+
+            <EditText
+                android:id="@+id/edit_number_type_card"
+                android:layout_width="match_parent"
+                android:textColorHint="@color/app_gray"
+                android:background="@null"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View style="@style/NCLine" />
+    <Button
+        android:id="@+id/btn_isBinding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/app_white"
+        android:textSize="18dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_blue_selector"/>
+</LinearLayout>

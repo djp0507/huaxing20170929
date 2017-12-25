@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="80dp"
+    android:background="@color/app_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_bindingcard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:gravity="center"
+        android:textColor="@color/ban_touming_color"
+        android:textSize="18dp" />
+
+    <View style="@style/NCLine" />
+
+    <TextView
+        android:id="@+id/tv_bindingAlipay"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:textColor="@color/ban_touming_color"
+        android:textSize="18dp" />
+
+    <View style="@style/NCLine" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/ban_touming_color"
+        android:paddingBottom="15dp"
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:text="@string/cancel"
+        android:textSize="18dp" />
+
+    <View style="@style/NCLine" />
+</LinearLayout>

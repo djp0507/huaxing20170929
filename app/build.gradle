@@ -1,0 +1,220 @@
+apply plugin: 'com.android.application'
+
+def buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate
+}
+
+android {
+    signingConfigs {
+        debug {
+        }
+        release {
+            storeFile file("keystore.jks")//这个文件需要放在modele所在根目录下
+            keyAlias "key"
+            keyPassword "123456"
+            storePassword "123456"
+        }
+
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+//    splits {
+//        abi {
+//            enable true
+//            reset()
+//            include 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a' //select ABIs to build APKs for
+//            universalApk true //generate an additional APK that contains all the ABIs
+//        }
+//    }
+    compileSdkVersion 25
+    buildToolsVersion "23.0.1"
+    // map for the version code
+//    project.ext.versionCodes = ['armeabi': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3, 'mips': 5, 'mips64': 6, 'x86': 8, 'x86_64': 9]
+//
+//    android.applicationVariants.all { variant ->
+//        // assign different version code for each output
+//        variant.outputs.each { output ->
+//            output.versionCodeOverride =
+//                    project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) * 1000000 + android.defaultConfig.versionCode
+//        }
+//    }
+
+    defaultConfig {
+        applicationId "cn.hx.hn.android"
+//        签名:db00e19fba2530c018e984139f8a449c
+//        MD5: DB:00:E1:9F:BA:25:30:C0:18:E9:84:13:9F:8A:44:9C
+//        SHA1: E0:BF:9A:6B:B9:24:9F:65:55:FF:BC:FC:7C:7C:AC:19:E7:34:7E:07
+//        SHA256: 09:F0:C3:C7:AD:00:DC:F5:A5:1D:52:D0:40:17:4B:A1:0E:C7:D9:B7:CB:0D:F2:1A:0D:60:49:05:58:4D:04:CC
+
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 8
+        versionName "1.0.6"
+        multiDexEnabled true
+
+        buildConfigField "String", "PROTOCOL", '"http://"'
+
+        buildConfigField "String", "HOST", '"www.hxing.com"'
+//        buildConfigField "String", "HOST_XIANSHANG", '"test2.hxing.com"'
+        buildConfigField "String", "HOST_XIANSHANG", '"www.hxing.com"'
+        buildConfigField "String", "HOST_XIANXIA", '"offline.hxing.com"'
+//        buildConfigField "String", "HOST", '"hxing.localhost"'
+//        buildConfigField "String", "HOST_XIANSHANG", '"hxing.localhost"'
+//        buildConfigField "String", "HOST_XIANXIA", '"offline.hxing.localhost"'
+        buildConfigField "String", "WAP_URL", '"http://www.hxing.com/hxing.com/wap/"'
+        buildConfigField "String", "IM_HOST", '"www.hxing.com:8090"' //www.hxing.com:8090
+        buildConfigField "String", "PORT", '"80"'
+        buildConfigField "String", "APP", '"/mobile"'
+
+        resValue "string", "app_name", "华星电器"
+
+        manifestPlaceholders.put("UMENG_APPKEY", "566e3d5167e58e2442001aee")
+
+        buildConfigField "String", "WX_APP_ID", '"wx9c7b937339439525"'
+        buildConfigField "String", "WX_APP_SECRET", '"cc1d90902a203252146318a7b9245ec7"'
+        buildConfigField "String", "WEIBO_APP_KEY", '"2783637589"'
+        buildConfigField "String", "WEIBO_APP_SECRET", '"d9c5808797cda76b5e8966e3088a13bb"'
+        buildConfigField "String", "QQ_APP_ID", '"1104747605"'
+        buildConfigField "String", "QQ_APP_KEY", '"mRcykHdVih1pF9qi"'
+        buildConfigField "String", "app_name_android", '"华星电器Android端"'
+
+        resValue "string", "more_aboutus_appname", "华星电器 Android客户端"
+        resValue "string", "more_aboutus_version", "版本：1.0.0"
+        resValue "string", "app_copyright", "Copyright © 2007–2016"
+        resValue "string", "app_copreserved", "广州辰康科技有限责任公司, All Rights Reserved"
+
+        buildConfigField "Boolean", "is_log", 'true'
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+
+    }
+
+
+    productFlavors {
+        google {
+
+        }
+        baidu {
+
+        }
+
+    }
+    productFlavors.all { flavor ->
+        manifestPlaceholders.put("UMENG_CHANNEL_VALUE", name)
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk')
+                    && 'release'.equals(variant.buildType.name)) {
+                def apkFile = new File(
+                        output.outputFile.getParent(),
+                        "华星电器_${variant.flavorName}_v${variant.versionName}_${buildTime()}.apk")
+                output.outputFile = apkFile
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            zipAlignEnabled false
+            shrinkResources false  //删除无用资源
+
+        }
+        debug {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            zipAlignEnabled false
+            shrinkResources false  //删除无用资源
+        }
+
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/barcode_core.jar')
+    compile files('libs/ormlite-android-4.48.jar')
+    compile files('libs/ormlite-core-4.48.jar')
+    compile files('libs/socketio.jar')
+    compile files('libs/universal-image-loader-1.9.3.jar')
+    compile files('libs/WebSocket.jar')
+    compile files('libs/weiboSDKCore_3.1.2.jar')
+    compile files('libs/open_sdk_r5509.jar')
+    compile files('libs/httpmime-4.1.3.jar')
+    compile files('libs/umeng_social_sdk.jar')
+    compile files('libs/mta-sdk-1.6.2.jar')
+    compile files('libs/SocialSDK_QQZone_3.jar')
+    compile files('libs/SocialSDK_Sina.jar')
+    compile files('libs/SocialSDK_sms.jar')
+    compile files('libs/SocialSDK_WeiXin_1.jar')
+    compile files('libs/SocialSDK_WeiXin_2.jar')
+    compile files('libs/alipaySdk-20151215.jar')
+    compile files('libs/glide-3.6.1.jar')
+    compile files('libs/gson-2.2.1.jar')
+    compile files('libs/okhttputils.jar')
+    compile files('libs/android-viewbadger.jar')
+    compile files('libs/fastjson-1.2.7.jar')
+    compile files('libs/pushservice-5.0.0.66.jar')
+    compile files('libs/alivc-player-2.1.0.jar')
+    compile files('libs/httpclient-4.2.5.jar')
+    compile files('libs/httpcore-4.2.4.jar')
+    /*log打印*/
+    /*视频播放*/
+    compile project(':giraffeplayer')
+    /*异常处理*/
+    /*广告图*/
+    //    /*recyclerviewheader 控件*/
+
+    //    compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
+
+    /*获取视频图片*/
+    /*滚动播放*/
+    /*动画*/
+    compile project(':AlivcBubblingAnimationViewRelease1.0.0')
+    /*阿里推流*/
+    compile project(':AlivcLiveRecord-release1.0.0')
+    /*倒计时*/
+    /*recyclerview适配器*/
+    compile files('libs/eventbus-3.0.0.jar')
+
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okio:okio:1.5.0'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.orhanobut:logger:1.11'
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.11'
+    compile 'com.github.danylovolokh:list-visibility-utils:0.2.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.github.iwgang:countdownview:2.1.2'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.6.0'
+    compile 'com.teprinciple:updateapputils:1.3'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+}
